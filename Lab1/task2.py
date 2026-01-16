@@ -1,0 +1,23 @@
+import numpy as np
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.metrics import accuracy_score
+from data import generate_xor_data
+from visual import plot_2d_data
+X,y=generate_xor_data(n=200)
+plot_2d_data(X,y,title="Xor Data orginal")
+linear_model=LogisticRegression()
+linear_model.fit(X,y)
+y_pred_linear=linear_model.predict(X)
+linear_accuracy=accuracy_score(y,y_pred_linear)
+print(f"linear Model Accuracy{linear_accuracy:.2f}")
+plot_2d_data(X,y_pred_linear,title="XOR data Linear Model Pediction")
+poly=PolynomialFeatures(degree=2,include_bias=False)
+X_poly=poly.fit_transform(X)
+poly_model=LogisticRegression()
+poly_model.fit(X_poly,y)
+y_pred_poly=poly_model.predict(X_poly)
+poly_accuracy=accuracy_score(y,y_pred_poly)       
+print(f"Polynomial feature model accuracy on XOR Dat{poly_accuracy}")
+plot_2d_data(X,y_pred_poly,title="XOR Data-polynomial Feature Model prediction")
+
